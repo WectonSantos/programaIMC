@@ -1,0 +1,43 @@
+// WECTON DA SILVA SANTOS
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+	FILE *fp;
+	FILE *fpMasc;
+	FILE *fpFem;
+	fp = fopen("tabela.txt", "r");
+	fpMasc = fopen("masculino.txt", "w");
+	fpFem = fopen("feminino.txt", "w");
+
+	int idade;
+	float peso;
+	float altura;
+	float imcMasc;
+	float imcFem;
+	char sexo;
+	
+	if(fp!=0){
+		printf("Arquivo aberto e dados salvos com sucesso!\n");
+		//system("cls");
+	}else{
+		printf("Falha em abrir o arquivo!");
+		//system("cls");
+	}
+	
+	rewind(fp);
+	
+	while(!feof(fp)){
+		fscanf(fp, "%d %c %f %f", &idade, &sexo, &peso, &altura);
+		imcMasc = peso/(altura*altura);
+		if(sexo=='M'){
+			fprintf(fpMasc,"%d	%c	%.0f	%.2f	%.2f\n", idade, sexo, peso, altura, imcMasc);	
+		}
+		if(sexo=='F'){
+			fprintf(fpFem,"%d	%c	%.0f	%.2f	%.2f\n", idade, sexo, peso, altura, imcMasc);
+		}
+		
+	}
+}
